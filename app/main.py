@@ -46,12 +46,6 @@ async def log_requests(request: fastapi.Request, call_next):
     return response
 
 
-@app.get("/log-test")
-async def log_test():
-    logger.info("Test log entry")
-    return {"message": "Check logs!"}
-
-
 app.include_router(v1_router, prefix="/v1")
 
 register_tortoise(
