@@ -27,4 +27,4 @@ jobs:
 
             - name: Run Pytest
               run: |
-                  PYTHONPATH=$(pwd) poetry run pytest --maxfail=5 --disable-warnings --cov=app --cov-report=xml
+                  PYTHONPATH=$(pwd) poetry run pytest --maxfail=5 --disable-warnings
