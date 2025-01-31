@@ -4,6 +4,7 @@ import fastapi
 from tortoise.contrib.fastapi import register_tortoise
 
 from app.config import ENVIRONMENT, TORTOISE_ORM
+from app.routers.v1 import router as v1_router
 
 
 def get_metadata():
@@ -19,6 +20,8 @@ app = fastapi.FastAPI(
     description=meta["description"],
     version=meta["version"],
 )
+
+app.include_router(v1_router, prefix="/v1")
 
 register_tortoise(
     app,
