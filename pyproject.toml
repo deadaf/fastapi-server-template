@@ -2,7 +2,9 @@
 name = "fastapi-server-template"
 version = "0.1.0"
 description = "a basic fastapi project template with tortoise orm (postgresql), aerich for migrations, and docker."
-authors = ["rgahlyn <rohit@safe.pe>"]
+authors = [
+    "rgahlyn <rohit@safe.pe>",
+]
 license = "MIT"
 readme = "README.md"
 
@@ -11,10 +13,26 @@ python = "^3.12"
 fastapi = "^0.115.8"
 tortoise-orm = "^0.24.0"
 httpx = "^0.28.1"
-uvicorn = {extras = ["standard"], version = "^0.34.0"}
-aerich = {extras = ["toml"], version = "^0.8.1"}
 
+[tool.poetry.dependencies.uvicorn]
+extras = [
+    "standard",
+]
+version = "^0.34.0"
+
+[tool.poetry.dependencies.aerich]
+extras = [
+    "toml",
+]
+version = "^0.8.1"
+
+[tool.aerich]
+tortoise_orm = "app.config.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."
 
 [build-system]
-requires = ["poetry-core"]
+requires = [
+    "poetry-core",
+]
 build-backend = "poetry.core.masonry.api"
