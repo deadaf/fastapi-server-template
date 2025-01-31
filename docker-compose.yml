@@ -7,5 +7,8 @@ services:
     ports:
       - "8000:8000"
 
+    volumes:
+      - ./logs:/app/logs
+
     restart: always
     container_name: fastapi_server

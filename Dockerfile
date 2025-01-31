@@ -24,6 +24,10 @@ WORKDIR /app
 
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 COPY app app
+COPY pyproject.toml ./
+
+# Ensure log directory exists
+RUN mkdir -p /app/logs
 
 ENV PYTHONUNBUFFERED=1
 
