@@ -1,9 +1,12 @@
 import logging
 import os
 import tomllib
+import traceback
 from logging.handlers import RotatingFileHandler
 
 import fastapi
+import fastapi.middleware
+import fastapi.middleware.cors
 from tortoise.contrib.fastapi import register_tortoise
 
 from app.config import ENVIRONMENT, TORTOISE_ORM
@@ -37,6 +40,14 @@ app = fastapi.FastAPI(
     version=meta["version"],
 )
 
+app.add_middleware(
+    fastapi.middleware.cors.CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.middleware("http")
 async def log_requests(request: fastapi.Request, call_next):
@@ -44,6 +55,12 @@ async def log_requests(request: fastapi.Request, call_next):
     response = await call_next(request)
     logger.info(f"{request.method} {request.url} - {response.status_code}")
     return response
+
+
+@app.exception_handler(500)
+async def exception_handler(request, exc):
+    logger.error(traceback.format_exc())
+    return fastapi.responses.PlainTextResponse("Internal Server Error", status_code=500)
 
 
 app.include_router(v1_router, prefix="/v1")
