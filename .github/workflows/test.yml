@@ -32,9 +32,13 @@ jobs:
 
             - name: Run Pytest
               run: |
-                  PYTHONPATH=$(pwd) poetry run pytest --maxfail=5 --disable-warnings --cov-branch --cov-report=xml
+                  PYTHONPATH=$(pwd) poetry run pytest --maxfail=5 --disable-warnings --cov-branch --cov-report=xml:coverage.xml
+
+            - name: List files for debugging
+              run: ls -la
 
             - name: Upload Coverage to Codecov
               uses: codecov/codecov-action@v5
               with:
                   token: ${{ secrets.CODECOV_TOKEN }}
+                  files: coverage.xml
