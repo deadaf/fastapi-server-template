@@ -1,0 +1,20 @@
+{
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnType": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        },
+    },
+    "python.analysis.autoImportCompletions": false,
+    "python.analysis.typeCheckingMode": "standard",
+    "python.languageServer": "Pylance",
+    "isort.args": [
+        "--profile",
+        "black",
+    ],
+    "black-formatter.args": [
+        "--line-length=135"
+    ],
+}
